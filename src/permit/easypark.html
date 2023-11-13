@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyPark - Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #5f80e6da;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0f0e0e;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0a0b0c;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            display: none;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .message {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .success {
+            color: #4CAF50;
+        }
+
+        .error {
+            color: #FF5733;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EasyPark - Account</h1>
+        <ul>
+            <li><a href="#permissions" id="permissions-link">Parking Permissions</a></li>
+        </ul>
+        <form id="add-permit">
+            <label for="permit-info">Enter Permit Information:</label>
+            <input type="text" id="permit-info" name="permit-info" required>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="message success" id="success-message">Permit successfully added</div>
+        <div class="message error" id="error-message">An error occurred. Please check your input.</div>
+    </div>
+
+    <script>
+        const permissionsLink = document.getElementById('permissions-link');
+        const permitForm = document.getElementById('add-permit');
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+
+        permissionsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            permitForm.style.display = 'block';
+        });
+
+        permitForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const permitInfo = document.getElementById('permit-info').value;
+            if (permitInfo) {
+                successMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+            } else {
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
