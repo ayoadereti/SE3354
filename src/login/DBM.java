@@ -1,84 +1,104 @@
 package login;
 
-import java.util.*;
-import java.io.*;
 import java.time.*;
-import java.text.*;
+import java.sql.*;
 
 public class DBM {
-	boolean contains = false;
-	ArrayList<User> users = new ArrayList<User>();
+	boolean contains;
+	Timestamp starttime = null;
+	Timestamp endtime = null;
 		
 	public DBM() {
-		/*
-		 * This is so that we can have data on startup
-		 * the gerneral format is this
-		 * 
-		 * Username Password ParkingSpotNumber Starttime endtime
-		 * 
-		 * the actual database is just an arraylist of Users each of which can have their own reservation object
-		 */
-		File Database = new File("Database");
-		String Username = "";
-		String Password = "";
-		int ParkingSpotNumber = -1;
-		Instant StartTime = null;
-		Instant EndTime = null;;
-		String pattern = "MM/dd/yy/kk/mm";
-		DateFormat df = new SimpleDateFormat(pattern);
-		
-		
-		try {
-			Scanner in = new Scanner(Database);
-			
-			while(in.hasNext()) {
-				Username = in.next();
-				Password = in.next();
-				ParkingSpotNumber = in.nextInt();
-				if(ParkingSpotNumber == 0) {
-					User user = new User(Username, Password);
-					users.add(user);
-					break;
-				}
-				try {
-					StartTime = df.parse(in.next()).toInstant();
-					EndTime = df.parse(in.next()).toInstant();
-					
-				}
-				catch (ParseException e) {
-				}
-				Reservation res = new Reservation(ParkingSpotNumber, StartTime, EndTime);
-				User user = new User(Username, Password, res);
-				users.add(user);
-			}
-			in.close();
-		} 
-		catch (FileNotFoundException e) {
-			System.out.print("HI");
-		}
-		
 	}
 
 	public boolean contains(String Username) {
 		contains = false;
-		for(int i = 0; i < users.size(); i++) {
-			if(users.get(i).getUsername().equals(Username)) {
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "dbpass");
+			PreparedStatement preparedStatement=connection.prepareStatement("SELECT * FROM user_table having username = ?");
+			
+			preparedStatement.setString(1, Username);
+			ResultSet resultSet=preparedStatement.executeQuery();
+			if(resultSet.next()) {
 				contains = true;
 			}
+		
+		} 
+		catch (SQLException e) {
+			System.out.print("Error connecting to database");
 		}
 		return contains;
 	}
 	public User getuser(String Username) {
-		for(int i = 0; i < users.size(); i++) {
-			if(users.get(i).getUsername().equals(Username)) {
-				return users.get(i);
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "dbpass");
+			PreparedStatement preparedStatement=connection.prepareStatement("SELECT * FROM user_table having username = ?");
+			
+			preparedStatement.setString(1, Username);
+			ResultSet resultSet=preparedStatement.executeQuery();
+			resultSet.next();
+			String Uname = resultSet.getString("username");
+			String Pword = resultSet.getString("password");
+			String Perm = resultSet.getString("permission");
+			int parkSpot = resultSet.getInt("spotNumber");
+			if(parkSpot == 0) {
+				return new User(Uname,Pword,Perm);
 			}
+			starttime = resultSet.getTimestamp("starttime");
+			endtime = resultSet.getTimestamp("endtime");
+			Reservation res = new Reservation(parkSpot,starttime,endtime);
+			return new User(Uname,Pword,res,Perm);
+			
+		
+		} 
+		catch (SQLException e) {
+			System.out.print("Error connecting to database");
+			return null;
 		}
-		return null;
 	}
-	public void print() {
-		User user = users.get(0);
-		System.out.println(user.getUsername() + " " + user.getPassword() + " "  + user.getReservation().starttime + " " + user.getReservation().endtime );
+	public User createUser(String Username, String Password) {
+		User currentUser = new User(Username,Password,null);
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "dbpass");
+			PreparedStatement preparedStatement=connection.prepareStatement("INSERT into user_table values(?,?,?,?,?)");
+			
+			preparedStatement.setString(1, Username);
+			preparedStatement.setString(2, Password);
+			preparedStatement.setInt(3, 0);
+			preparedStatement.setNull(4, Types.NULL);
+			preparedStatement.setNull(5, Types.NULL);
+			preparedStatement.executeUpdate();
+			System.out.print("executed");
+		} 
+		catch (SQLException e) {
+			System.out.print("Error connecting to database");
+		}
+		
+		return currentUser;
 	}
+	public void UpdatePerm(User currentUser,String Perm) {
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "dbpass");
+			PreparedStatement preparedStatement=connection.prepareStatement("update user_table set permission = ? where username = ?");
+			preparedStatement.setString(1, Perm);
+			preparedStatement.setString(2, currentUser.getUsername());
+		}
+		catch (SQLException e) {
+			System.out.print("Error connecting to database");
+		}
+	}
+	public void UpdateRes(User currentUser,Reservation res) {
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "dbpass");
+			PreparedStatement preparedStatement=connection.prepareStatement("update user_table set spotNumber = ?, starttime = ?, endtime = ?  where username = ?");
+			preparedStatement.setInt(1, res.parkingSpotNumber);
+			preparedStatement.setTimestamp(2, res.starttime);
+			preparedStatement.setTimestamp(3, res.endtime);
+		}
+		catch (SQLException e) {
+			System.out.print("Error connecting to database");
+		}
+	}
+	
 	
 }

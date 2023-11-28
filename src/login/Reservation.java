@@ -1,12 +1,12 @@
 package login;
-import java.time.*;
+import java.sql.*;
 
 public class Reservation {
 	int parkingSpotNumber;
-	Instant starttime;
-	Instant endtime;
+	Timestamp starttime;
+	Timestamp endtime;
 	
-	public Reservation(int parkingno, Instant start, Instant end){
+	public Reservation(int parkingno, Timestamp start, Timestamp end){
 		parkingSpotNumber = parkingno;
 		starttime = start;
 		endtime = end;

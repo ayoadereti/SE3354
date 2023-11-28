@@ -13,7 +13,6 @@ public class loginManager{
 		Password = scan.next();
 		Msg message = new Msg();
 		DBM database = new DBM();
-		database.print();
 		if(database.contains(Username)) {
 			User currUser = database.getuser(Username);
 			correctPW = currUser.checkPassword(Password);
@@ -27,7 +26,6 @@ public class loginManager{
 		else {
 			message.add("Username not found");
 		}
-		message.print();
 		scan.close();
 	
 	}
