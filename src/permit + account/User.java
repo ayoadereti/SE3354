@@ -47,6 +47,7 @@ public class User {
         }
     }
 
+    // User input for firstName must contain only alphabetic characters 
     public boolean validateFirstName(String firstName) {
         for (char c : firstName.toCharArray()) {
             if (!Character.isLetter(c)) {
@@ -66,6 +67,7 @@ public class User {
         }
     }
 
+    // User input for lastName must contain only alphabetic characters 
     public boolean validateLastName(String lastName) {
         for (char c : lastName.toCharArray()) {
             if (!Character.isLetter(c)) {
@@ -85,19 +87,25 @@ public class User {
         }
     }
 
+    // User input for email must follow the format of a valid UTD address 
+    // Accepted format: NETID (3 letters, 6 numbers) + "@utdallas.edu"
     public boolean validateEmail(String email) {
+        if (!email.contains("@")) {
+            return false;
+        }
+        
         String [] emailFrag = email.split("@");
-
+        
         if (!emailFrag[1].equals("utdallas.edu")) {
             return false;
         }
+        
         if (emailFrag[0].length() == 9) {
             String initials = emailFrag[0].substring(0, 3);
             String nums = emailFrag[0].substring(3);
             
             for (char c : initials.toCharArray()) {
                 if (!Character.isLetter(c)) {
-                    System.out.println("Contains a non-alphabetic char");
                     return false;
                 }
             }
@@ -123,6 +131,8 @@ public class User {
         }
     }
 
+    // User input for password must be between 6 to 8 characters in length
+    // and contain only alphanumeric and (at least 1) special characters 
     public boolean validatePassword(String password) {
         boolean valid = false;
 
@@ -148,7 +158,9 @@ public class User {
     public void setPermit(String permit) {
         this.permit = permit;
     }
-
+    
+    // User input for permit must be 10 characters in length
+    // and contain only alphanumeric characters 
     public boolean validatePermit(String permit) {
         if (permit.length() == 10) {
             for (char c : permit.toCharArray()) {
