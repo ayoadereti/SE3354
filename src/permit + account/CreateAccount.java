@@ -11,6 +11,7 @@ public class CreateAccount {
         Scanner scnr = new Scanner(System.in);
 
         while (repeat) {
+            // Get account info from user input
             System.out.println("First Name: ");
             String firstName = scnr.next();
 
@@ -23,10 +24,12 @@ public class CreateAccount {
             System.out.println("Password: ");
             String password = scnr.next();
 
+            // Initialize an Account Controller obj and call the createAccount method
             AccountController controller = new AccountController();
             String message = controller.createAccount(firstName, lastName, email, password).print();
             System.out.println("\n" + message);
 
+            // Prompt user to try again if account info is invalid 
             if (!message.contains("Invalid")) {
                 repeat = false;
             }
