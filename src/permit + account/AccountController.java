@@ -9,8 +9,7 @@ import org.hibernate.cfg.Configuration;
 
 // Ayobami Adereti
 
-
-// Attributes + methods for managing user accounts 
+// Attributes + methods for adding permits + managing user accounts 
 // Database management executed with MySQL, Jakarta Persistence, and Hibernate 
 public class AccountController {
     private String user;
