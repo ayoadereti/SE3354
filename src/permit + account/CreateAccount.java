@@ -30,7 +30,7 @@ public class CreateAccount {
             System.out.println("\n" + message);
 
             // Prompt user to try again if account info contains invalid input
-            if (!message.contains("Invalid")) {
+            if (!message.contains("Invalid") && !message.contains("not)) {
                 repeat = false;
             }
         }
