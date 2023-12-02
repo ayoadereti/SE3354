@@ -90,6 +90,5 @@ class PermitTest {
         assertTrue(p.validateEffectiveDate("08-23-2023", "12-01-2023"));
         assertFalse(p.validateExpirationDate("12-01-2023"));
         assertTrue(p.getUsers() < 2);
-
     }
 }
