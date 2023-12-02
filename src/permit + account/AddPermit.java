@@ -7,30 +7,37 @@ import java.util.Scanner;
 
 public class AddPermit {
     public static void main(String[] args) {
+        boolean repeat = true;
         Scanner scnr = new Scanner(System.in);
 
-        // Get permit info
-        System.out.println("License Plate: ");
-        String licensePlate = scnr.next();
-        System.out.println();
+        while (repeat) {
+            System.out.println("License Plate: ");
+            String licensePlate = scnr.next();
+            System.out.println();
 
-        System.out.println("Permit Number: ");
-        String permitNumber = scnr.next();
-        System.out.println();
+            System.out.println("Permit Number: ");
+            String permitNumber = scnr.next();
+            System.out.println();
 
-        System.out.println("Effective Date: ");
-        String effectiveDate = scnr.next();
-        System.out.println();
+            System.out.println("Effective Date: ");
+            String effectiveDate = scnr.next();
+            System.out.println();
 
-        System.out.println("Expiration Date: ");
-        String expirationDate = scnr.next();
-        System.out.println();
+            System.out.println("Expiration Date: ");
+            String expirationDate = scnr.next();
+            System.out.println();
 
-        System.out.println("User: ");
-        String user = scnr.next();
-        System.out.println();
+            System.out.println("User: ");
+            String user = scnr.next();
+            System.out.println();
 
-        AccountController controller = new AccountController(user);
-        System.out.println(controller.addPermit(permitNumber, licensePlate, effectiveDate, expirationDate).print());
+            AccountController controller = new AccountController(user);
+            String message = controller.addPermit(permitNumber, licensePlate, effectiveDate, expirationDate).print();
+            System.out.println("\n" + message);
+
+            if (!message.contains("Invalid") && !message.contains("already")) {
+                repeat = false;
+            }
+        }
     }
 }
