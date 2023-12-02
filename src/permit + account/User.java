@@ -9,13 +9,17 @@ import java.util.regex.Pattern;
 public class User {
     @Column
     private String firstName;
+    
     @Column
     private String lastName;
+    
     @Id
     @Column(name="username")
     private String email;
+    
     @Column
     private String password;
+    
     @Column(name="permitNumber")
     String permit;
 
@@ -81,19 +85,14 @@ public class User {
 
     public boolean validateEmail(String email) {
         String [] emailFrag = email.split("@");
-        // System.out.println("First: " + emailFrag[0] + ", Second: " + emailFrag[1]);
 
         if (!emailFrag[1].equals("utdallas.edu")) {
             return false;
         }
-
         if (emailFrag[0].length() == 9) {
             String initials = emailFrag[0].substring(0, 3);
             String nums = emailFrag[0].substring(3);
-
-            // System.out.println("Initials: " + initials);
-            // System.out.println("Nums: " + nums);
-
+            
             for (char c : initials.toCharArray()) {
                 if (!Character.isLetter(c)) {
                     System.out.println("Contains a non-alphabetic char");
@@ -105,10 +104,8 @@ public class User {
                 int i = Integer.parseInt(nums);
             }
             catch (NumberFormatException e) {
-                // System.out.println("Contains a non-numeric char");
                 return false;
             }
-
             return true;
         }
         return false;
@@ -139,7 +136,6 @@ public class User {
                 }
             }
         }
-
         return valid;
     }
 
