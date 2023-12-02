@@ -59,6 +59,8 @@ public class Permit {
         }
     }
 
+    // User input for permitNumber must be 10 characters in length
+    // and contain only alphanumeric characters 
     public boolean validatePermitNumber(String permitNumber) {
         if (permitNumber.length() == 10) {
             for (char c : permitNumber.toCharArray()) {
@@ -97,6 +99,8 @@ public class Permit {
         }
     }
 
+    // User input for licensePlate must be 6 to 8 characters in length 
+    // and contain only alphanumeric characters and white spaces
     public boolean validateLicensePlate(String licensePlate) {
         if (licensePlate.length() >= 6 && licensePlate.length() <= 8) {
             for (char c : licensePlate.toCharArray()) {
@@ -119,6 +123,8 @@ public class Permit {
         }
     }
 
+    // User input for effectiveDate must be written in the format MM-DD-YYY
+    // The corresponding date must fall before the expiration date
     public boolean validateEffectiveDate(String effectiveDate, String expirationDate) {
         Date effDate;
         Date expDate;
@@ -143,6 +149,8 @@ public class Permit {
         return expirationDate;
     }
 
+    // User input for expirationDate must be written in the format MM-DD-YYYY
+    // The corresponding date must fall on or after the current date 
     public boolean validateExpirationDate(String expirationDate) {
         Date expDate;
         Date today = new Date();
