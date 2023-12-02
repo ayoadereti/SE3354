@@ -5,7 +5,7 @@ import java.util.Scanner;
 // UC01 - Create Account
 // Ayobami Adereti
 
-public class createAccount {
+public class CreateAccount {
     public static void main(String[] args) {
         Scanner scnr = new Scanner(System.in);
 
