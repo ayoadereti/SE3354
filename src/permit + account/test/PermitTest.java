@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 // Ayobami Adereti
 
 class PermitTest {
-    AccountMngmt.entity.Permit p;
+    Permit p;
 
     @BeforeEach
     void setUp() {
