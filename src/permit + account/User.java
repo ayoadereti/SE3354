@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import java.util.regex.Pattern;
 
+// Ayobami Adereti
+
 @Entity
 public class User {
     @Column
