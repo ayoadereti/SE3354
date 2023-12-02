@@ -24,12 +24,12 @@ public class CreateAccount {
             System.out.println("Password: ");
             String password = scnr.next();
 
-            // Initialize an Account Controller obj and call the createAccount method
+            // Initialize an AccountController obj and call the createAccount method
             AccountController controller = new AccountController();
             String message = controller.createAccount(firstName, lastName, email, password).print();
             System.out.println("\n" + message);
 
-            // Prompt user to try again if account info is invalid 
+            // Prompt user to try again if account info contains invalid input
             if (!message.contains("Invalid")) {
                 repeat = false;
             }
