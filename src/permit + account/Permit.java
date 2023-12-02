@@ -29,7 +29,6 @@ public class Permit {
     @Column
     private int users = 0;
 
-
     public Permit() {
     }
 
@@ -111,6 +110,7 @@ public class Permit {
     public String getEffectiveDate() {
         return effectiveDate;
     }
+    
     public void setEffectiveDate(String effectiveDate, String expirationDate) {
         if (validateEffectiveDate(effectiveDate, expirationDate)) {
             this.effectiveDate = effectiveDate;
@@ -128,7 +128,6 @@ public class Permit {
         } catch (ParseException e) {
             return false;
         }
-
         return effDate.before(expDate);
     }
 
@@ -152,19 +151,8 @@ public class Permit {
         } catch (ParseException e) {
             return false;
         }
-
         return !expDate.before(today);
     }
-
-    /*
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
-    }
-     */
 
     public void setUsers(int users) {
         this.users = users;
