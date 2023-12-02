@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 // Ayobami Adereti
 
 class UserTest {
-
     User u;
 
     @BeforeEach
@@ -97,7 +96,4 @@ class UserTest {
         assertTrue(u.validatePassword("ohYeah!"));
         assertFalse(u.validatePermit("bad Permit"));
     }
-
-
-
 }
