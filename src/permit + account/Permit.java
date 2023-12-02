@@ -167,9 +167,4 @@ public class Permit {
     public void addUser() {
         users += 1;
     }
-
-    public String print() {
-        String str = getPermitNumber() + "\n" + getPlateNumbers() + getEffectiveDate() + "\n" + getExpirationDate() + "\n" + getUsers();
-        return str;
-    }
 }
