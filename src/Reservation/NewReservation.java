@@ -6,6 +6,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+// UC10 - Make Reservation
+// Gabe Butuc
+
 public class NewReservation {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

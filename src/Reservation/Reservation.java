@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+// UC10 - Make Reservation
+// Gabe Butuc
+
 public class Reservation {
     private LocalDate date;
     private LocalTime startTime;
